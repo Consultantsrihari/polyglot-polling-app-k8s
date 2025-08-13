@@ -1,0 +1,39 @@
+# ./k8s-manifests/result-service-manifest.yaml
+
+# Defines the Deployment for our Node.js Results page
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: result-service-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: result-service
+  template:
+    metadata:
+      labels:
+        app: result-service
+    spec:
+      containers:
+      - name: result-service
+        image: result-service:v1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+        env:
+          - name: REDIS_HOST
+            value: "redis" # How the result service finds the Redis database
+---
+# Defines the internal network Service for the Results page
+apiVersion: v1
+kind: Service
+metadata:
+  name: result-service
+spec:
+  type: ClusterIP
+  selector:
+    app: result-service
+  ports:
+  - port: 80
+    targetPort: 80

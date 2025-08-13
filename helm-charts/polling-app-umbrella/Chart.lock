@@ -1,0 +1,15 @@
+dependencies:
+- name: redis
+  repository: file://../redis
+  version: 0.1.0
+- name: api-service
+  repository: file://../api-service
+  version: 0.1.0
+- name: poll-ui
+  repository: file://../poll-ui
+  version: 0.1.0
+- name: result-service
+  repository: file://../result-service
+  version: 0.1.0
+digest: sha256:c62aba745c32ca63ffcb452e8225e67c208342bb2a1db5217725663c3fe7b629
+generated: "2025-08-13T21:20:26.9408024+05:30"

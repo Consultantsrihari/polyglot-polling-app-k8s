@@ -1,0 +1,43 @@
+# ./docker-compose.yml
+version: '3.8'
+
+services:
+  # The Redis database service
+  redis:
+    image: "redis:alpine"
+    ports:
+      # Expose Redis on port 6379 for potential local debugging, but services will use the internal network
+      - "6379:6379"
+
+  # The Python API service
+  api-service:
+    build: ./api-service
+    ports:
+      - "5001:5000" # Map host port 5001 to container port 5000
+    environment:
+      - REDIS_HOST=redis # Tell the API where to find Redis
+    depends_on:
+      - redis
+
+  # The React UI service
+  poll-ui:
+    build:
+      context: ./poll-ui
+      args:
+        # This tells React how to reach the API. It will be 'http://localhost:5001'
+        # because the browser on your machine connects to the port mapped on your host.
+        REACT_APP_API_URL: http://localhost:5001
+    ports:
+      - "5000:80" # Map host port 5000 to container port 80
+    depends_on:
+      - api-service
+
+  # The Node.js results service
+  result-service:
+    build: ./result-service
+    ports:
+      - "5002:80" # Map host port 5002 to container port 80
+    environment:
+      - REDIS_HOST=redis
+    depends_on:
+      - redis

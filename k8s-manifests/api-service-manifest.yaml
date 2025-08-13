@@ -1,0 +1,39 @@
+# ./k8s-manifests/api-service-manifest.yaml
+
+# Defines the Deployment for our Python API
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-service-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-service
+  template:
+    metadata:
+      labels:
+        app: api-service # Label for the Service to find these pods
+    spec:
+      containers:
+      - name: api-service
+        image: api-service:v1   # The image we built inside Minikube
+        imagePullPolicy: IfNotPresent # IMPORTANT: Tells K8s not to look online for this image
+        ports:
+        - containerPort: 5000
+        env:
+          - name: REDIS_HOST # This sets an environment variable inside the container
+            value: "redis"  # The value is the name of our Redis Service. This is how the API finds the DB.
+---
+# Defines the internal network Service for the API
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-service
+spec:
+  type: ClusterIP # Only accessible from within the cluster
+  selector:
+    app: api-service # Routes traffic to pods with the 'app: api-service' label
+  ports:
+  - port: 5000
+    targetPort: 5000

@@ -1,0 +1,38 @@
+# ./k8s-manifests/poll-ui-manifest.yaml
+
+# Defines the Deployment for our React UI
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: poll-ui-deployment
+spec:
+  replicas: 2 # We can run two copies of our UI for fun
+  selector:
+    matchLabels:
+      app: poll-ui
+  template:
+    metadata:
+      labels:
+        app: poll-ui
+    spec:
+      containers:
+      - name: poll-ui
+        image: poll-ui:v1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+        # NOTE: The REACT_APP_API_URL is baked into this image from Phase 1.
+        # For a real-world scenario, we would use a ConfigMap here instead.
+---
+# Defines the internal network Service for the Poll UI
+apiVersion: v1
+kind: Service
+metadata:
+  name: poll-ui-service # We will use this name to port-forward to it
+spec:
+  type: ClusterIP
+  selector:
+    app: poll-ui
+  ports:
+  - port: 80
+    targetPort: 80

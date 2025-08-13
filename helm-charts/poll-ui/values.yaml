@@ -1,0 +1,14 @@
+# helm-charts/poll-ui/values.yaml
+replicaCount: 2 # We can run two replicas of the UI
+
+image:
+  repository: poll-ui
+  tag: v1
+  pullPolicy: IfNotPresent
+
+service:
+  port: 80
+
+# We define the API URL here so it can be used in the deployment template
+api:
+  url: "http://my-poll-app-api-service:5000"

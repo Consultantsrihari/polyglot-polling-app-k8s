@@ -1,0 +1,42 @@
+# ./k8s-manifests/redis-manifest.yaml
+
+# Defines a stable network endpoint for Redis.
+# Other pods will connect to Redis using the name "redis".
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+  labels:
+    app: redis
+spec:
+  ports:
+  - port: 6379
+    name: redis-port
+  selector:
+    app: redis # This service routes traffic to any pod with the label 'app: redis'
+
+---
+
+# Defines the Redis pod itself.
+# A StatefulSet is used for databases to provide stable storage and network names.
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: redis
+spec:
+  serviceName: "redis"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis # The label the Service looks for
+    spec:
+      containers:
+      - name: redis
+        image: redis:alpine # This public image will be pulled from Docker Hub
+        ports:
+        - containerPort: 6379
+          name: redis-port

@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-poll-ui
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: poll-ui
+  template:
+    metadata:
+      labels:
+        app: poll-ui
+    spec:
+      containers:
+      - name: poll-ui
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - containerPort: {{ .Values.service.port }}
+        env:
+          - name: REACT_APP_API_URL
+            value: "http://{{ .Release.Name }}-api-service:5000"

@@ -1,0 +1,7 @@
+# This is the entire content of polling-app-umbrella/values.yaml
+
+# Default ingress values.
+ingress:
+  # By default, ingress is disabled.
+  # We enable it by passing '--set ingress.enabled=true'
+  enabled: false
