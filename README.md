@@ -66,6 +66,8 @@ polyglot-polling-app/
 ```
 
 ---
+<img width="2816" height="1536" alt="Gemini_Generated_Image_clot6sclot6sclot" src="https://github.com/user-attachments/assets/65192196-34d4-4a93-9438-97ff0071b876" />
+
 
 ## 🧩 Helm Charts Explained
 
