@@ -7,6 +7,8 @@ This project is a real-world, multi-service application that demonstrates:
 - Orchestration with Kubernetes (Minikube and AWS EKS)
 - Packaging and deployment with Helm (including umbrella and sub-charts)
 - Routing with Ingress
+- Complete End to End project: [Complete Guide to Deploying a Polyglot App on Kubernetes [K8’S]
+](https://techcareerhubs.com/deploying-a-polyglot-app-on-kubernetes/)
 
 ---
 
@@ -283,6 +285,8 @@ Each sub-chart has its own `Chart.yaml`, `values.yaml`, and Kubernetes manifests
 *   LinkedIn: [Venkata sri Hari](https://www.linkedin.com/in/venkatasrihari/)
 *   GitHub: `@Consultantsrihari`
 *   Website: [TechCareerHubs](https://techcareerhubs.com/).
+*   [Complete Guide to Deploying a Polyglot App on Kubernetes [K8’S]
+](https://techcareerhubs.com/deploying-a-polyglot-app-on-kubernetes/)
 
 <img width="1919" height="1031" alt="Screenshot 2025-08-13 081939" src="https://github.com/user-attachments/assets/bd3a38ea-0a29-4a9b-ae39-babd220c48a1" />
 <img width="1919" height="1021" alt="Screenshot 2025-08-13 081948" src="https://github.com/user-attachments/assets/e9841880-c36c-4f89-9cd1-b7be37915565" />
